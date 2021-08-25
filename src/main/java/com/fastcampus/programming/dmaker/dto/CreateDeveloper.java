@@ -18,6 +18,8 @@ public class CreateDeveloper {
     @Builder
     @ToString
     public static class Request{
+
+
         @NotNull
         private DeveloperLevel developerLevel;
         @NotNull
