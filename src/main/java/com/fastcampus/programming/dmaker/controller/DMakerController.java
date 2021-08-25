@@ -34,16 +34,13 @@ public class DMakerController {
 
 
     @PostMapping("/create-developers")
-    public List<String> createDeveloper(
+    public CreateDeveloper.Response createDeveloper(
             @Valid @RequestBody CreateDeveloper.Request request
             ) {
         // GET /developers HTTP/1.1"
         log.info("request : {}", request);
 
-        dMakerService.createDeveloper(request);
-
-
-        return Arrays.asList("Olaf");
+        return dMakerService.createDeveloper(request);
     }
 
 

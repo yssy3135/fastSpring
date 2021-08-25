@@ -32,7 +32,7 @@ public class DMakerService {
     // Isolation
     // Durability
     @Transactional
-    public void createDeveloper(CreateDeveloper.Request request){
+    public CreateDeveloper.Response createDeveloper(CreateDeveloper.Request request){
             validateCreateDeveloperRequest(request);
 
             // business logic start
@@ -40,11 +40,14 @@ public class DMakerService {
                     .developerLevel(DeveloperLevel.JUNGIOR)
                     .developerSkillType(DeveloperSkillType.FRONT_END)
                     .experienceYears(2)
-                    .name("Olaf")
-                    .age(5)
+                    .memberId(request.getMemberId())
+                    .name(request.getName())
+                    .age(request.getAge())
                     .build();
 
-                    developerRepository.save(developer);
+            developerRepository.save(developer);
+
+            return CreateDeveloper.Response.fromEntity(developer);
     }
 
     private void validateCreateDeveloperRequest(CreateDeveloper.Request request) {
