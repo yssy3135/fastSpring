@@ -1,0 +1,9 @@
+###
+### Send POST request with json body
+GET http://localhost:8080/developer/Mini
+Content-Type: application/json
+
+{
+  "memberId" : "Mini"
+
+}

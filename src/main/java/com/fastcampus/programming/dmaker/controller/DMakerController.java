@@ -1,13 +1,14 @@
 package com.fastcampus.programming.dmaker.controller;
 
 import com.fastcampus.programming.dmaker.dto.CreateDeveloper;
+import com.fastcampus.programming.dmaker.dto.DeveloperDetailDto;
+import com.fastcampus.programming.dmaker.dto.DeveloperDto;
+import com.fastcampus.programming.dmaker.dto.EditDeveloper;
+import com.fastcampus.programming.dmaker.entity.Developer;
 import com.fastcampus.programming.dmaker.service.DMakerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -25,15 +26,24 @@ public class DMakerController {
     private final DMakerService dMakerService;
 
     @GetMapping("/developers")
-    public List<String> getAllDevelopers() {
+    public List<DeveloperDto> getAllDevelopers() {
         // GET /developers HTTP/1.1"
         log.info("GET /developers HTTP/1.1");
 
-        return Arrays.asList("snow", "Elsa", "Olaf");
+        return dMakerService.getAllDevelopers();
+    }
+
+    @GetMapping("developer/{memberId}")
+    public DeveloperDetailDto getDeveloperDetail(
+            @PathVariable String memberId
+    ){
+
+        log.info("GET /developers HTTP/1.1");
+        return dMakerService.getDeveloperDetail(memberId);
     }
 
 
-    @PostMapping("/create-developers")
+    @PostMapping("/create-developer")
     public CreateDeveloper.Response createDeveloper(
             @Valid @RequestBody CreateDeveloper.Request request
             ) {
@@ -42,6 +52,19 @@ public class DMakerController {
 
         return dMakerService.createDeveloper(request);
     }
+
+
+    @PutMapping("developer/{memberId}")
+    public DeveloperDetailDto editDeveloper(
+            @PathVariable String memberId,
+            @Valid @RequestBody EditDeveloper.Request request
+    ){
+
+        log.info("GET /developers HTTP/1.1");
+        return dMakerService.editDeveloper(memberId,request);
+    }
+
+
 
 
 }
